@@ -1,7 +1,7 @@
 <?php 
 
 $errors = '';
-$myemail = '916jishnu@gmail.com';//
+$myemail = 'jishnu.jayaraj@web.de';//
 if(empty($_POST['name'])  || 
    empty($_POST['email']) || 
    empty($_POST['message']))

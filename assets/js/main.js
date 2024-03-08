@@ -3,7 +3,17 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
+const quote = document.getElementById('interactive-quote');
 
+quote.addEventListener('mousemove', (e) => {
+    const mouseX = e.clientX / window.innerWidth - 0.5;
+    const mouseY = e.clientY / window.innerHeight - 0.5;
+    quote.style.transform = `translate(${mouseX * 10}px, ${mouseY * 10}px)`;
+});
+
+quote.addEventListener('mouseleave', (e) => {
+    quote.style.transform = '';
+});
 (function($) {
 
 	var $window = $(window),

@@ -72,6 +72,55 @@ input, select, textarea {
 	appearance: none;
 }
 
+
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center; /* Center the badges horizontally */
+    padding: 20px;
+}
+
+.tech-stack img {
+    margin: 5px; /* Add some space around each badge */
+    max-width: 100%; /* Make images responsive */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.interests-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .interest-group {
+    flex-basis: calc(50% - 20px);
+  }
+  .interest-group h3 {
+    text-decoration: underline;
+  }
+  .interest-item {
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+
+#quote-container {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+#interactive-quote {
+    font-family: 'Arial', sans-serif;
+    font-size: 24px;
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+    text-align: center;
+}
 /* Basic */
 
 	html {
