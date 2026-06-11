@@ -1,0 +1,42 @@
+---
+import { profile } from '../data/profile';
+---
+<section id="projects">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">04 — Projects</span>
+      <h2>Selected work.</h2>
+      <p class="note">A mix of work I'm building toward — real case studies coming soon.</p>
+    </div>
+    <div class="proj-grid">
+      {profile.projects.map((p) => (
+        <article class="proj card reveal">
+          {p.placeholder && <span class="wip">Sample</span>}
+          <span class="proj-area">{p.area}</span>
+          <h3>{p.title}</h3>
+          <p>{p.blurb}</p>
+          <div class="proj-tags">{p.tags.map((t) => <span class="tag">{t}</span>)}</div>
+          <div class="proj-links">
+            <a href={p.links.github} target="_blank" rel="noopener">Code →</a>
+            <a href={p.links.demo} target="_blank" rel="noopener">Demo →</a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .note { color: var(--text-muted); margin-top: .6rem; font-size: .95rem; }
+  .proj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.2rem; }
+  .proj { padding: 1.5rem; position: relative; display: flex; flex-direction: column; transition: transform .2s ease, border-color .2s ease; }
+  .proj:hover { transform: translateY(-4px); border-color: var(--accent); }
+  .wip { position: absolute; top: 1rem; right: 1rem; font-family: var(--font-mono); font-size: .65rem; text-transform: uppercase; letter-spacing: .08em; color: var(--text-muted); border: 1px solid var(--border); padding: .15rem .5rem; border-radius: 6px; }
+  .proj-area { font-family: var(--font-mono); font-size: .72rem; color: var(--accent); }
+  .proj h3 { font-size: 1.15rem; margin: .4rem 0 .6rem; }
+  .proj p { color: var(--text-soft); font-size: .95rem; flex: 1; }
+  .proj-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin: 1rem 0; }
+  .proj-links { display: flex; gap: 1.2rem; font-family: var(--font-mono); font-size: .82rem; }
+  .proj-links a { color: var(--text-muted); transition: color .2s; }
+  .proj-links a:hover { color: var(--accent); }
+</style>

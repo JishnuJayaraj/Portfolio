@@ -1,0 +1,94 @@
+---
+import Base from '../layouts/Base.astro';
+import { profile } from '../data/profile';
+// The CV is generated from the SAME data as the site.
+// "Download PDF" uses the browser's print-to-PDF (window.print) so there's
+// always exactly one source of truth and nothing to keep in sync.
+const flatSkills = profile.skills.map((g) => g.items.join(', '));
+---
+<Base title={`${profile.name} — CV`}>
+  <div class="cv-toolbar no-print">
+    <a href="/" class="btn">← Back</a>
+    <button onclick="window.print()" class="btn btn-primary">Download PDF</button>
+  </div>
+
+  <article class="cv">
+    <header class="cv-head">
+      <h1>{profile.name}</h1>
+      <p class="cv-role">{profile.role}</p>
+      <p class="cv-meta">
+        {profile.location} · <a href={profile.links.email}>{profile.email}</a><br />
+        {profile.links.github} · {profile.links.linkedin}
+      </p>
+    </header>
+
+    <section>
+      <h2>Profile</h2>
+      <p>{profile.about[0]} {profile.about[1]}</p>
+    </section>
+
+    <section>
+      <h2>Experience</h2>
+      {profile.experience.map((job) => (
+        <div class="cv-job">
+          <div class="cv-job-head">
+            <strong>{job.title}, {job.company}</strong>
+            <span>{job.period}</span>
+          </div>
+          <ul>{job.bullets.map((b) => <li>{b}</li>)}</ul>
+        </div>
+      ))}
+    </section>
+
+    <section>
+      <h2>Skills</h2>
+      <ul class="cv-skills">
+        {profile.skills.map((g) => (
+          <li><strong>{g.group}:</strong> {g.items.join(', ')}</li>
+        ))}
+      </ul>
+    </section>
+
+    <section>
+      <h2>Education</h2>
+      {profile.education.map((e) => (
+        <div class="cv-job">
+          <div class="cv-job-head"><strong>{e.degree}, {e.school}</strong><span>{e.period}</span></div>
+          {e.note && <p class="cv-note">{e.note}</p>}
+        </div>
+      ))}
+    </section>
+  </article>
+</Base>
+
+<style>
+  .cv-toolbar { max-width: 800px; margin: 1.5rem auto 0; padding: 0 1.5rem; display: flex; justify-content: space-between; }
+  .cv {
+    max-width: 800px; margin: 1.5rem auto 4rem; padding: 3rem;
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    color: var(--text);
+  }
+  .cv-head { border-bottom: 2px solid var(--accent); padding-bottom: 1rem; margin-bottom: 1.5rem; }
+  .cv-head h1 { font-size: 2rem; letter-spacing: -.02em; }
+  .cv-role { color: var(--accent); font-weight: 600; }
+  .cv-meta { color: var(--text-soft); font-size: .85rem; margin-top: .5rem; line-height: 1.6; }
+  .cv section { margin-bottom: 1.6rem; }
+  .cv h2 { font-size: 1rem; text-transform: uppercase; letter-spacing: .06em; color: var(--accent); margin-bottom: .7rem; }
+  .cv-job { margin-bottom: 1rem; }
+  .cv-job-head { display: flex; justify-content: space-between; gap: 1rem; }
+  .cv-job-head span { color: var(--text-muted); font-size: .85rem; white-space: nowrap; }
+  .cv ul { margin: .4rem 0 0; padding-left: 1.1rem; }
+  .cv li { font-size: .92rem; color: var(--text-soft); margin-bottom: .25rem; }
+  .cv-skills { list-style: none; padding: 0; }
+  .cv-skills li { margin-bottom: .4rem; }
+  .cv-note { font-size: .88rem; color: var(--text-muted); }
+
+  /* Print: white A4, no chrome */
+  @media print {
+    .no-print { display: none !important; }
+    :global(body) { background: #fff; }
+    .cv { box-shadow: none; border: none; border-radius: 0; margin: 0; padding: 0; max-width: 100%; color: #111; }
+    .cv li, .cv-meta, .cv-job-head span { color: #333; }
+    @page { margin: 1.6cm; }
+  }
+</style>

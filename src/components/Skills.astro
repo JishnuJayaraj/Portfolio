@@ -1,0 +1,26 @@
+---
+import { profile } from '../data/profile';
+---
+<section id="skills">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">02 — Skills</span>
+      <h2>What I work with.</h2>
+    </div>
+    <div class="skills-grid">
+      {profile.skills.map((g) => (
+        <div class="skill-card card reveal">
+          <h3>{g.group}</h3>
+          <ul>{g.items.map((s) => <li class="tag">{s}</li>)}</ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; }
+  .skill-card { padding: 1.4rem; }
+  .skill-card h3 { font-size: 1rem; margin-bottom: 1rem; }
+  .skill-card ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+</style>

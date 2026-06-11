@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+---
+<Base title="Thanks — message sent">
+  <Nav />
+  <main class="container thanks">
+    <h1>Thanks for reaching out! 🎉</h1>
+    <p>Your message has been sent — I'll get back to you soon.</p>
+    <a href="/" class="btn btn-primary">Back home</a>
+  </main>
+</Base>
+
+<style>
+  .thanks { min-height: 70vh; display: grid; place-content: center; text-align: center; gap: 1rem; }
+  .thanks h1 { font-size: clamp(2rem, 5vw, 3rem); letter-spacing: -.02em; }
+  .thanks p { color: var(--text-soft); }
+  .thanks .btn { justify-self: center; margin-top: 1rem; }
+</style>

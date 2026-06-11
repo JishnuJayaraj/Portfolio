@@ -1,0 +1,59 @@
+---
+import { profile } from '../data/profile';
+---
+<section id="contact">
+  <div class="container contact-inner reveal">
+    <div class="section-head">
+      <span class="eyebrow">05 — Contact</span>
+      <h2>Let's build something.</h2>
+      <p class="note">Have a project, a question, or just want to say hi? Drop me a line.</p>
+    </div>
+
+    <!--
+      Netlify Forms: the data-netlify attribute makes Netlify detect and capture
+      submissions automatically (no backend). honeypot = spam protection.
+      You'll get email notifications once enabled in the Netlify dashboard.
+    -->
+    <form
+      name="contact"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      action="/thanks"
+      class="card contact-form"
+    >
+      <input type="hidden" name="form-name" value="contact" />
+      <p class="hidden">
+        <label>Don't fill this out: <input name="bot-field" /></label>
+      </p>
+
+      <div class="row">
+        <label>Name<input type="text" name="name" required autocomplete="name" /></label>
+        <label>Email<input type="email" name="email" required autocomplete="email" /></label>
+      </div>
+      <label>Message<textarea name="message" rows="5" required></textarea></label>
+      <button type="submit" class="btn btn-primary">Send message</button>
+    </form>
+
+    <p class="or">…or email me directly at <a href={profile.links.email}>{profile.email}</a></p>
+  </div>
+</section>
+
+<style>
+  .contact-inner { max-width: 680px; margin: 0 auto; text-align: center; }
+  .contact-inner .section-head { margin-bottom: 2rem; }
+  .note { color: var(--text-muted); margin-top: .6rem; }
+  .contact-form { padding: 1.8rem; text-align: left; display: grid; gap: 1rem; }
+  .contact-form .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .contact-form label { display: grid; gap: .4rem; font-size: .85rem; font-weight: 600; color: var(--text-soft); }
+  .contact-form input, .contact-form textarea {
+    font: inherit; padding: .7rem .8rem; border-radius: 10px;
+    border: 1px solid var(--border); background: var(--bg); color: var(--text); width: 100%;
+  }
+  .contact-form input:focus, .contact-form textarea:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
+  .contact-form button { justify-self: start; margin-top: .4rem; }
+  .hidden { display: none; }
+  .or { margin-top: 1.4rem; color: var(--text-muted); font-size: .92rem; }
+  .or a { color: var(--accent); }
+  @media (max-width: 560px) { .contact-form .row { grid-template-columns: 1fr; } }
+</style>

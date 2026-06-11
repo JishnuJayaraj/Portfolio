@@ -1,0 +1,24 @@
+---
+import { profile } from '../data/profile';
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="container footer-inner">
+    <p>© {year} {profile.name}</p>
+    <div class="footer-links">
+      <a href={profile.links.github} target="_blank" rel="noopener">GitHub</a>
+      <a href={profile.links.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+      <a href={profile.links.twitter} target="_blank" rel="noopener">Twitter</a>
+      <a href="/cv">CV</a>
+    </div>
+    <p class="built">Built with Astro · Three.js</p>
+  </div>
+</footer>
+
+<style>
+  .footer { border-top: 1px solid var(--border); padding: 2rem 0; }
+  .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; color: var(--text-muted); font-size: .88rem; }
+  .footer-links { display: flex; gap: 1.2rem; }
+  .footer-links a:hover { color: var(--accent); }
+  .built { font-family: var(--font-mono); font-size: .78rem; }
+</style>

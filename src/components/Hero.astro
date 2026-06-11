@@ -1,0 +1,75 @@
+---
+import { profile } from '../data/profile';
+import HeroCanvas from './HeroCanvas.tsx';
+---
+
+<header id="top" class="hero">
+  <div class="hero-canvas"><HeroCanvas client:load /></div>
+
+  <div class="container hero-inner">
+    <p class="hero-eyebrow">{profile.role} · {profile.location}</p>
+    <h1>
+      Hi, I'm <span class="grad">{profile.name}</span>.
+    </h1>
+    <p class="hero-tagline">{profile.tagline}</p>
+    <p class="hero-sub">
+      I build systems that learn — from large language models and retrieval pipelines
+      to the infrastructure that runs them.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#projects" class="btn btn-primary">View my work</a>
+      <a href="#contact" class="btn">Get in touch</a>
+    </div>
+
+    <div class="hero-socials">
+      <a href={profile.links.github} target="_blank" rel="noopener" aria-label="GitHub">GitHub</a>
+      <a href={profile.links.linkedin} target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
+      <a href={profile.links.twitter} target="_blank" rel="noopener" aria-label="Twitter / X">Twitter</a>
+      <a href={profile.links.email} aria-label="Email">Email</a>
+    </div>
+  </div>
+
+  <a href="#about" class="scroll-cue" aria-hidden="true">↓</a>
+</header>
+
+<style>
+  .hero { position: relative; min-height: 92vh; display: flex; align-items: center; overflow: hidden; }
+  .hero-canvas {
+    position: absolute; inset: 0; opacity: .8;
+    /* fade the particles away from the text on the left */
+    -webkit-mask-image: linear-gradient(to right, transparent 8%, rgba(0,0,0,.25) 38%, #000 70%);
+    mask-image: linear-gradient(to right, transparent 8%, rgba(0,0,0,.25) 38%, #000 70%);
+  }
+  @media (max-width: 860px) { .hero-canvas { display: none; } }
+  .hero-inner { position: relative; z-index: 1; max-width: 780px; }
+  .hero-eyebrow {
+    font-family: var(--font-mono); font-size: .85rem; letter-spacing: .08em;
+    color: var(--accent); margin-bottom: 1.2rem;
+  }
+  .hero h1 {
+    font-size: clamp(2.6rem, 7vw, 4.6rem); font-weight: 700;
+    letter-spacing: -.03em; line-height: 1.05;
+  }
+  .grad {
+    background: linear-gradient(120deg, var(--accent), color-mix(in srgb, var(--accent) 55%, var(--text)));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero-tagline {
+    font-size: clamp(1.2rem, 2.4vw, 1.7rem); font-weight: 600;
+    margin-top: 1rem; color: var(--text);
+  }
+  .hero-sub { font-size: 1.1rem; color: var(--text-soft); margin-top: .8rem; max-width: 38rem; }
+  .hero-actions { display: flex; gap: .8rem; margin-top: 2rem; flex-wrap: wrap; }
+  .hero-socials { display: flex; gap: 1.4rem; margin-top: 2rem; }
+  .hero-socials a {
+    font-family: var(--font-mono); font-size: .85rem; color: var(--text-muted);
+    border-bottom: 1px solid transparent; transition: color .2s, border-color .2s;
+  }
+  .hero-socials a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  .scroll-cue {
+    position: absolute; bottom: 1.6rem; left: 50%; transform: translateX(-50%);
+    color: var(--text-muted); font-size: 1.4rem; animation: bob 2s ease-in-out infinite;
+  }
+  @keyframes bob { 0%,100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 8px); } }
+</style>
