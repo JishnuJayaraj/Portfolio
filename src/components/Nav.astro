@@ -13,8 +13,8 @@ const links = [
   <div class="container nav-inner">
     <a href="#top" class="brand">{profile.name.split(' ')[0]}<span>.</span></a>
 
-    <div class="nav-links">
-      {links.map(([label, href]) => <a href={href}>{label}</a>)}
+    <div class="nav-links" aria-label="Section navigation">
+      {links.map(([label, href]) => <a href={href} data-nav-link>{label}</a>)}
     </div>
 
     <div class="nav-actions">
@@ -25,9 +25,58 @@ const links = [
 
 <script is:inline>
   (() => {
-    // subtle border once you scroll past the hero crest
-    const nav = document.querySelector('.nav');
-    addEventListener('scroll', () => nav?.classList.toggle('scrolled', window.scrollY > 20), { passive: true });
+    const initActiveNav = () => {
+      const nav = document.querySelector('.nav');
+      const links = [...document.querySelectorAll('[data-nav-link]')];
+      const sections = links
+        .map((link) => document.querySelector(link.getAttribute('href')))
+        .filter(Boolean);
+
+      if (!links.length || !sections.length) return;
+
+      let ticking = false;
+      const setActive = (id) => {
+        links.forEach((link) => {
+          const isActive = link.getAttribute('href') === `#${id}`;
+          link.classList.toggle('is-active', isActive);
+          if (isActive) {
+            link.setAttribute('aria-current', 'true');
+          } else {
+            link.removeAttribute('aria-current');
+          }
+        });
+      };
+
+      const updateNav = () => {
+        nav?.classList.toggle('scrolled', window.scrollY > 20);
+
+        const readLine = window.scrollY + window.innerHeight * 0.38;
+        let activeId = '';
+        for (const section of sections) {
+          if (section.offsetTop <= readLine) activeId = section.id;
+        }
+
+        if (window.scrollY < 160) activeId = '';
+        setActive(activeId);
+        ticking = false;
+      };
+
+      const requestUpdate = () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(updateNav);
+      };
+
+      addEventListener('scroll', requestUpdate, { passive: true });
+      addEventListener('resize', requestUpdate, { passive: true });
+      updateNav();
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initActiveNav, { once: true });
+    } else {
+      initActiveNav();
+    }
   })();
 </script>
 
@@ -44,9 +93,37 @@ const links = [
   .brand { font-weight: 600; font-size: 1.15rem; letter-spacing: -.03em; }
   .brand span { color: var(--link); }
   .nav-links { display: flex; gap: 1.9rem; }
-  .nav-links a { color: var(--text-soft); font-size: .92rem; font-weight: 500; letter-spacing: -.01em; transition: color .2s ease; }
-  .nav-links a:hover { color: var(--text); }
+  .nav-links a {
+    position: relative;
+    color: var(--text-soft);
+    font-size: .92rem;
+    font-weight: 500;
+    letter-spacing: -.01em;
+    transition: color .2s ease;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -.45rem;
+    height: 2px;
+    border-radius: 999px;
+    background: var(--link);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform .28s var(--ease);
+  }
+  .nav-links a:hover,
+  .nav-links a.is-active {
+    color: var(--text);
+  }
+  .nav-links a.is-active { font-weight: 650; }
+  .nav-links a.is-active::after { transform: scaleX(1); }
   .nav-actions { display: flex; align-items: center; gap: .6rem; }
   .cv-btn { padding: .45rem 1.1rem; font-size: .85rem; }
   @media (max-width: 720px) { .nav-links { display: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    .nav-links a::after { transition: none; }
+  }
 </style>

@@ -17,7 +17,6 @@ export const profile = {
   ],
   role: 'Machine Learning Engineer',
   location: 'Nürnberg, Germany',
-  email: 'jishnu.jayaraj@web.de',
   // Portrait shown in the About section. Lives in /public, served as-is.
   photo: '/me.jpg',
   about: [
@@ -36,7 +35,6 @@ export const profile = {
     github: 'https://github.com/JishnuJayaraj',
     linkedin: 'https://www.linkedin.com/in/jishnu-jayaraj/',
     twitter: 'https://x.com/JI5hnu',
-    email: 'mailto:jishnu.jayaraj@web.de',
   },
 
   // ── Skills, grouped (ML → Data Science → DevOps → Full-stack → Home lab) ──────
