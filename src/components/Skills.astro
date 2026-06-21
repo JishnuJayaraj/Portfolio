@@ -6,6 +6,7 @@ import { profile } from '../data/profile';
     <div class="section-head reveal">
       <span class="eyebrow">02 — Skills</span>
       <h2>What I work with.</h2>
+      <p class="note">The tools and methods I reach for, grouped by domain.</p>
     </div>
     <div class="skills-grid">
       {profile.skills.map((g) => (
@@ -19,7 +20,9 @@ import { profile } from '../data/profile';
 </section>
 
 <style>
-  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; }
+  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+  @media (max-width: 860px) { .skills-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .skills-grid { grid-template-columns: 1fr; } }
   .skill-card { padding: 1.4rem; }
   .skill-card h3 { font-size: 1rem; margin-bottom: 1rem; }
   .skill-card ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem; }

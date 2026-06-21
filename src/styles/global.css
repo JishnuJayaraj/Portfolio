@@ -75,6 +75,11 @@ section { padding: 7rem 0; scroll-margin-top: 5rem; }
   line-height: 1.06;
   letter-spacing: -.03em;
 }
+.section-head .note {
+  color: var(--text-muted);
+  margin-top: .85rem;
+  font-size: 1.02rem;
+}
 
 /* ─── Buttons ───────────────────────────────────────────────────────────── */
 .btn {

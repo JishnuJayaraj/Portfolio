@@ -62,6 +62,10 @@ export const profile = {
       items: ['Docker', 'Kubernetes', 'CI/CD', 'AWS / GCP', 'RabbitMQ', 'Bash / Shell', 'Linux'],
     },
     {
+      group: 'MLOps & Serving',
+      items: ['MLOps', 'Model Serving', 'Model Deployment', 'Experiment Tracking', 'Monitoring', 'Reproducible Pipelines'],
+    },
+    {
       group: 'Full-stack',
       items: ['TypeScript', 'React', 'FastAPI', 'Node.js', 'REST APIs', 'Astro'],
     },
