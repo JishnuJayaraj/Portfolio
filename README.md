@@ -70,7 +70,7 @@ npm run build      # production build → dist/
 npm run preview    # serve the built dist/ locally
 ```
 
-Node 20+ is required (Netlify uses Node 20, pinned in `netlify.toml`).
+Node 20+ is required (Netlify uses Node 24, pinned in `netlify.toml`).
 
 ---
 
