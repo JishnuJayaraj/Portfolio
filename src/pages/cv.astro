@@ -4,7 +4,6 @@ import { profile } from '../data/profile';
 // The CV is generated from the SAME data as the site.
 // "Download PDF" uses the browser's print-to-PDF (window.print) so there's
 // always exactly one source of truth and nothing to keep in sync.
-const flatSkills = profile.skills.map((g) => g.items.join(', '));
 ---
 <Base title={`${profile.name} — CV`}>
   <div class="cv-toolbar no-print">
@@ -44,7 +43,7 @@ const flatSkills = profile.skills.map((g) => g.items.join(', '));
       <h2>Skills</h2>
       <ul class="cv-skills">
         {profile.skills.map((g) => (
-          <li><strong>{g.group}:</strong> {g.items.join(', ')}</li>
+          <li><strong>{g.group}:</strong> {[...g.primary, ...g.also].join(', ')}</li>
         ))}
       </ul>
     </section>

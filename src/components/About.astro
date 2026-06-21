@@ -110,10 +110,9 @@ import { profile } from '../data/profile';
     overflow: hidden;
     transform-origin: center top;
   }
-  .about-side.reveal.in .profile-card { animation: profile-card-in 1s var(--ease) .12s both; }
-  @keyframes profile-card-in {
-    from { transform: translateY(18px) rotate(-1.2deg) scale(.985); }
-    to { transform: translateY(0) rotate(0) scale(1); }
+  .about-side.reveal:not(.in) .profile-card {
+    --card-lift: 18px;
+    --card-scale: .985;
   }
   .profile-photo {
     width: 100%; height: auto; aspect-ratio: 1 / 1;

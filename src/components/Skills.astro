@@ -5,14 +5,27 @@ import { profile } from '../data/profile';
   <div class="container">
     <div class="section-head reveal">
       <span class="eyebrow">02 — Skills</span>
-      <h2>What I work with.</h2>
-      <p class="note">The tools and methods I reach for, grouped by domain.</p>
+      <h2>Technical capabilities.</h2>
+      <p class="note">The domains, systems, and tools I can take from prototype to production.</p>
     </div>
     <div class="skills-grid">
       {profile.skills.map((g) => (
-        <div class="skill-card card reveal">
+        <div class="skill-card card reveal no-tilt">
+          <span class="cap-label">Capability</span>
           <h3>{g.group}</h3>
-          <ul>{g.items.map((s) => <li class="tag">{s}</li>)}</ul>
+          <p class="cap-summary">{g.summary}</p>
+
+          <div class="skill-set">
+            <span class="set-label">Primary</span>
+            <ul>{g.primary.map((s, i) => <li class="tag" style={`--tag-i:${i}`}>{s}</li>)}</ul>
+          </div>
+
+          <div class="skill-set secondary">
+            <span class="set-label">Also used</span>
+            <ul>{g.also.map((s, i) => <li class="tag" style={`--tag-i:${i + g.primary.length}`}>{s}</li>)}</ul>
+          </div>
+
+          <p class="applied">Applied in: {g.applied}</p>
         </div>
       ))}
     </div>
@@ -20,10 +33,80 @@ import { profile } from '../data/profile';
 </section>
 
 <style>
-  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
-  @media (max-width: 860px) { .skills-grid { grid-template-columns: repeat(2, 1fr); } }
+  .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+  @media (max-width: 900px) { .skills-grid { grid-template-columns: 1fr; } }
   @media (max-width: 560px) { .skills-grid { grid-template-columns: 1fr; } }
-  .skill-card { padding: 1.4rem; }
-  .skill-card h3 { font-size: 1rem; margin-bottom: 1rem; }
+  .skill-card {
+    position: relative;
+    overflow: hidden;
+    padding: 1.45rem;
+    min-height: 100%;
+  }
+  .skill-card:hover {
+    background: color-mix(in srgb, var(--surface) 90%, var(--bg-soft));
+  }
+  .cap-label {
+    display: inline-flex;
+    margin-bottom: .75rem;
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--link);
+  }
+  .skill-card h3 {
+    font-size: 1.14rem;
+    line-height: 1.15;
+    margin-bottom: .55rem;
+    letter-spacing: -.02em;
+  }
+  .cap-summary {
+    color: var(--text-soft);
+    font-size: .94rem;
+    margin-bottom: 1.15rem;
+  }
+  .skill-set { display: grid; gap: .55rem; margin-top: .95rem; }
+  .skill-set.secondary { margin-top: 1.05rem; }
+  .set-label {
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    text-transform: uppercase;
+    letter-spacing: .09em;
+    color: var(--text-muted);
+  }
   .skill-card ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+  .skill-card .tag {
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity .45s var(--ease),
+      transform .45s var(--ease),
+      background-color .25s ease,
+      border-color .25s ease,
+      color .25s ease;
+    transition-delay: calc(var(--tag-i, 0) * 24ms);
+  }
+  .skill-card.reveal.in .tag { opacity: 1; transform: translateY(0); }
+  .skill-card .tag:hover {
+    color: var(--text);
+    border-color: color-mix(in srgb, var(--link) 38%, var(--border));
+    background: color-mix(in srgb, var(--link) 9%, var(--bg-soft));
+  }
+  .applied {
+    margin-top: 1.15rem;
+    padding-top: .95rem;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: .82rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .skill-card .tag {
+      transition: none !important;
+    }
+    .skill-card .tag {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
 </style>

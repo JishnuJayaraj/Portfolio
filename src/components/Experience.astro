@@ -89,7 +89,8 @@ import { profile } from '../data/profile';
       0 0 28px color-mix(in srgb, var(--link) 28%, transparent);
   }
   .t-item.is-active .t-body {
-    transform: translateX(8px) scale(1.012);
+    --card-shift-x: 8px;
+    --card-scale: 1.012;
     border-color: color-mix(in srgb, var(--link) 34%, var(--border));
     background: color-mix(in srgb, var(--surface) 86%, var(--bg-soft));
     box-shadow: var(--shadow);
@@ -104,7 +105,7 @@ import { profile } from '../data/profile';
   .t-body li { color: var(--text-soft); margin-bottom: .4rem; }
 
   @media (max-width: 700px) {
-    .t-item.is-active .t-body { transform: translateX(4px); }
+    .t-item.is-active .t-body { --card-shift-x: 4px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -115,6 +116,8 @@ import { profile } from '../data/profile';
     .t-item.is-active .t-body,
     .t-item.is-active .t-dot {
       transform: none !important;
+      --card-shift-x: 0px !important;
+      --card-scale: 1 !important;
     }
   }
 </style>

@@ -99,20 +99,34 @@ section { padding: 7rem 0; scroll-margin-top: 5rem; }
 
 /* ─── Reveal-on-scroll ──────────────────────────────────────────────────── */
 .reveal {
+  --reveal-y: 26px;
   opacity: 0;
-  transform: translateY(26px);
+  transform: translateY(var(--reveal-y));
   filter: blur(6px);
   transition: opacity .9s var(--ease), transform .9s var(--ease), filter .9s var(--ease);
   transition-delay: var(--reveal-delay, 0ms);
 }
-.reveal.in { opacity: 1; transform: none; filter: none; }
+.reveal.in { --reveal-y: 0px; opacity: 1; transform: translateY(var(--reveal-y)); filter: none; }
 
 /* ─── Cards ─────────────────────────────────────────────────────────────── */
 .card {
+  --card-lift: 0px;
+  --card-shift-x: 0px;
+  --card-scale: 1;
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow-soft);
+  transform:
+    perspective(900px)
+    translateX(var(--card-shift-x))
+    translateY(calc(var(--reveal-y, 0px) + var(--card-lift)))
+    rotateX(var(--tilt-x))
+    rotateY(var(--tilt-y))
+    scale(var(--card-scale));
+  transform-style: preserve-3d;
   transition:
     transform .35s var(--ease),
     box-shadow .35s var(--ease),
@@ -122,7 +136,7 @@ section { padding: 7rem 0; scroll-margin-top: 5rem; }
 
 @media (hover: hover) and (pointer: fine) {
   .card:hover {
-    transform: translateY(-4px);
+    --card-lift: -4px;
     border-color: color-mix(in srgb, var(--link) 36%, var(--border));
     box-shadow: var(--shadow);
   }

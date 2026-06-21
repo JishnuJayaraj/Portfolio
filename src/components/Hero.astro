@@ -9,6 +9,7 @@ import { profile } from '../data/profile';
     <span class="blob b2"></span>
     <span class="blob b3"></span>
     <span class="blob b4"></span>
+    <span class="blob b5"></span>
     <span class="cursor-glow"></span>
   </div>
   <div class="hero-grain" aria-hidden="true"></div>
@@ -50,7 +51,7 @@ import { profile } from '../data/profile';
       el: blob,
       index,
       phase: index * 1.7,
-      speed: [0.42, 0.34, 0.38, 0.29][index] ?? 0.35,
+      speed: [0.42, 0.34, 0.38, 0.29, 0.46][index] ?? 0.35,
     }));
     if (!aurora || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
@@ -165,6 +166,13 @@ import { profile } from '../data/profile';
     --blob-color: var(--aur-4);
     --fade: 68%;
   }
+  .b5 {
+    width: 25vw; height: 25vw; top: 22%; left: 3%;
+    opacity: .52;
+    --px: 360px; --py: -300px;
+    --blob-color: color-mix(in srgb, var(--aur-2) 72%, var(--aur-4));
+    --fade: 70%;
+  }
 
   /* keep particles from crowding the headline on the left */
   .hero-grain {
@@ -222,5 +230,6 @@ import { profile } from '../data/profile';
     .b2 { width: 46vw; height: 46vw; --px: -300px; --py: 230px; }
     .b3 { width: 48vw; height: 48vw; --px: 250px; --py: -320px; }
     .b4 { width: 42vw; height: 42vw; --px: -340px; --py: -210px; }
+    .b5 { width: 42vw; height: 42vw; left: -12%; top: 18%; opacity: .38; --px: 210px; --py: -170px; }
   }
 </style>
