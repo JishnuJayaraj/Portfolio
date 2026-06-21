@@ -10,6 +10,26 @@ import { profile } from '../data/profile';
     <div class="about-grid">
       <div class="about-text reveal">
         {profile.about.map((p) => <p>{p}</p>)}
+
+        <div class="about-extra">
+          <div class="about-block">
+            <h3 class="block-label">At a glance</h3>
+            <ul class="highlights">
+              {profile.highlights.map((h) => <li>{h}</li>)}
+            </ul>
+          </div>
+          <div class="about-block">
+            <h3 class="block-label">Education</h3>
+            <ul class="edu">
+              {profile.education.map((e) => (
+                <li>
+                  <span class="edu-degree">{e.degree}</span>
+                  <span class="edu-meta">{e.school} · {e.period}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
       <aside class="about-side reveal">
         <img
@@ -37,6 +57,27 @@ import { profile } from '../data/profile';
 <style>
   .about-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 2.5rem; align-items: start; }
   .about-text p { color: var(--text-soft); margin-bottom: 1rem; font-size: 1.06rem; }
+
+  .about-extra {
+    margin-top: 2.4rem; padding-top: 2.2rem;
+    border-top: 1px solid var(--border);
+    display: grid; gap: 2rem;
+  }
+  .block-label {
+    font-family: var(--font-mono); font-size: .72rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: .1em; color: var(--text-muted);
+    margin-bottom: 1.1rem;
+  }
+  .highlights { list-style: none; padding: 0; display: grid; gap: .8rem; }
+  .highlights li { position: relative; padding-left: 1.5rem; color: var(--text-soft); font-size: 1.02rem; }
+  .highlights li::before {
+    content: ''; position: absolute; left: 0; top: .72em;
+    width: .85rem; height: 1.5px; background: var(--link);
+  }
+  .edu { list-style: none; padding: 0; display: grid; gap: 1.1rem; }
+  .edu li { display: grid; gap: .2rem; }
+  .edu-degree { font-weight: 600; color: var(--text); }
+  .edu-meta { font-size: .9rem; color: var(--text-muted); }
   .about-side { display: grid; gap: 1.2rem; align-self: start; position: sticky; top: 6rem; max-width: 320px; margin-left: auto; }
   .about-photo {
     width: 100%; height: auto;        /* height:auto lets aspect-ratio override the height="" attr hint */
