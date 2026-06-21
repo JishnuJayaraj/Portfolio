@@ -32,14 +32,6 @@ export const profile = {
      curious about how data and AI reshape the world.`,
   ],
 
-  // Short, scannable facts shown in the About "At a glance" list.
-  highlights: [
-    '5+ years building production ML & NLP systems',
-    'Roots in CFD, C++ & numerical simulation',
-    'From prototype to production — pipelines, serving, MLOps',
-    'Home-lab & automation enthusiast',
-  ],
-
   links: {
     github: 'https://github.com/JishnuJayaraj',
     linkedin: 'https://www.linkedin.com/in/jishnu-jayaraj/',

@@ -13,37 +13,30 @@ import { profile } from '../data/profile';
         {profile.about.map((p) => <p>{p}</p>)}
 
         <div class="about-extra">
-          <div class="about-block">
-            <h3 class="block-label">At a glance</h3>
-            <ul class="highlights">
-              {profile.highlights.map((h) => <li>{h}</li>)}
-            </ul>
-          </div>
-          <div class="about-block">
-            <h3 class="block-label">Education</h3>
-            <ul class="edu">
-              {profile.education.map((e) => (
-                <li>
-                  <span class="edu-degree">{e.degree}</span>
-                  <span class="edu-meta">{e.school} · {e.period}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <h3 class="block-label">Education</h3>
+          <ul class="edu">
+            {profile.education.map((e) => (
+              <li>
+                <span class="edu-degree">{e.degree}</span>
+                <span class="edu-meta">{e.school} · {e.period}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
+
       <aside class="about-side reveal">
-        <img
-          class="about-photo"
-          src={profile.photo}
-          alt={`${profile.name}, ${profile.role}, at his desk`}
-          width="800"
-          height="800"
-          loading="lazy"
-          decoding="async"
-        />
-        <div class="about-facts card">
-          <dl>
+        <div class="profile-card card">
+          <img
+            class="profile-photo"
+            src={profile.photo}
+            alt={`${profile.name}, ${profile.role}, at his desk`}
+            width="800"
+            height="800"
+            loading="lazy"
+            decoding="async"
+          />
+          <dl class="profile-facts">
             <div><dt>Based in</dt><dd>{profile.location}</dd></div>
             <div><dt>Focus</dt><dd>LLMs · NLP · MLOps</dd></div>
             <div><dt>Currently</dt><dd>ML Engineer @ MYPEGASUS</dd></div>
@@ -56,43 +49,39 @@ import { profile } from '../data/profile';
 </section>
 
 <style>
-  .about-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 2.5rem; align-items: start; }
+  .about-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 3rem; align-items: start; }
   .about-text p { color: var(--text-soft); margin-bottom: 1rem; font-size: 1.06rem; }
 
-  .about-extra {
-    margin-top: 2.4rem; padding-top: 2.2rem;
-    border-top: 1px solid var(--border);
-    display: grid; gap: 2rem;
-  }
+  /* Education — plain editorial block under the intro */
+  .about-extra { margin-top: 2.4rem; padding-top: 2.2rem; border-top: 1px solid var(--border); }
   .block-label {
     font-family: var(--font-mono); font-size: .72rem; font-weight: 500;
     text-transform: uppercase; letter-spacing: .1em; color: var(--text-muted);
     margin-bottom: 1.1rem;
   }
-  .highlights { list-style: none; padding: 0; display: grid; gap: .8rem; }
-  .highlights li { position: relative; padding-left: 1.5rem; color: var(--text-soft); font-size: 1.02rem; }
-  .highlights li::before {
-    content: ''; position: absolute; left: 0; top: .72em;
-    width: .85rem; height: 1.5px; background: var(--link);
-  }
   .edu { list-style: none; padding: 0; display: grid; gap: 1.1rem; }
   .edu li { display: grid; gap: .2rem; }
   .edu-degree { font-weight: 600; color: var(--text); }
   .edu-meta { font-size: .9rem; color: var(--text-muted); }
-  .about-side { display: grid; gap: 1.2rem; align-self: start; position: sticky; top: 6rem; max-width: 320px; margin-left: auto; }
-  .about-photo {
-    width: 100%; height: auto;        /* height:auto lets aspect-ratio override the height="" attr hint */
-    aspect-ratio: 1 / 1; object-fit: cover; object-position: 50% 28%;
-    border-radius: var(--radius); border: 1px solid var(--border);
-    box-shadow: var(--shadow);
+
+  /* Unified profile card — photo + facts as one unit */
+  .about-side { position: sticky; top: 6rem; max-width: 340px; margin-left: auto; }
+  .profile-card { overflow: hidden; }
+  .profile-photo {
+    width: 100%; height: auto; aspect-ratio: 1 / 1;
+    object-fit: cover; object-position: 50% 28%; display: block;
   }
-  .about-facts { padding: 1.4rem 1.5rem; }
-  .about-facts dl { display: grid; gap: 1rem; }
-  .about-facts dt { font-family: var(--font-mono); font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; color: var(--text-muted); }
-  .about-facts dd { font-weight: 600; }
-  .about-facts a:hover { color: var(--link); }
+  .profile-facts { padding: 1.5rem 1.6rem; display: grid; gap: 1.1rem; }
+  .profile-facts > div { display: grid; gap: .25rem; }
+  .profile-facts dt {
+    font-family: var(--font-mono); font-size: .72rem; text-transform: uppercase;
+    letter-spacing: .08em; color: var(--text-muted);
+  }
+  .profile-facts dd { font-weight: 600; }
+  .profile-facts a:hover { color: var(--link); }
+
   @media (max-width: 760px) {
     .about-grid { grid-template-columns: 1fr; }
-    .about-side { position: static; max-width: 320px; margin: 0 auto; }
+    .about-side { position: static; max-width: 340px; margin: 2.4rem auto 0; }
   }
 </style>
