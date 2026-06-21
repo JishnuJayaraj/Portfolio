@@ -11,13 +11,24 @@ import { profile } from '../data/profile';
       <div class="about-text reveal">
         {profile.about.map((p) => <p>{p}</p>)}
       </div>
-      <aside class="about-side reveal card">
-        <dl>
-          <div><dt>Based in</dt><dd>{profile.location}</dd></div>
-          <div><dt>Focus</dt><dd>LLMs · NLP · MLOps</dd></div>
-          <div><dt>Currently</dt><dd>ML Engineer @ MYPEGASUS</dd></div>
-          <div><dt>Email</dt><dd><a href={profile.links.email}>{profile.email}</a></dd></div>
-        </dl>
+      <aside class="about-side reveal">
+        <img
+          class="about-photo"
+          src={profile.photo}
+          alt={`${profile.name}, ${profile.role}, at his desk`}
+          width="800"
+          height="800"
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="about-facts card">
+          <dl>
+            <div><dt>Based in</dt><dd>{profile.location}</dd></div>
+            <div><dt>Focus</dt><dd>LLMs · NLP · MLOps</dd></div>
+            <div><dt>Currently</dt><dd>ML Engineer @ MYPEGASUS</dd></div>
+            <div><dt>Email</dt><dd><a href={profile.links.email}>{profile.email}</a></dd></div>
+          </dl>
+        </div>
       </aside>
     </div>
   </div>
@@ -26,10 +37,19 @@ import { profile } from '../data/profile';
 <style>
   .about-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 2.5rem; align-items: start; }
   .about-text p { color: var(--text-soft); margin-bottom: 1rem; font-size: 1.06rem; }
-  .about-side { padding: 1.5rem; }
-  .about-side dl { display: grid; gap: 1rem; }
-  .about-side dt { font-family: var(--font-mono); font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; color: var(--text-muted); }
-  .about-side dd { font-weight: 600; }
-  .about-side a:hover { color: var(--accent); }
-  @media (max-width: 760px) { .about-grid { grid-template-columns: 1fr; } }
+  .about-side { display: grid; gap: 1.2rem; align-self: start; position: sticky; top: 6rem; }
+  .about-photo {
+    width: 100%; aspect-ratio: 1 / 1; object-fit: cover;
+    border-radius: var(--radius); border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+  .about-facts { padding: 1.4rem 1.5rem; }
+  .about-facts dl { display: grid; gap: 1rem; }
+  .about-facts dt { font-family: var(--font-mono); font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; color: var(--text-muted); }
+  .about-facts dd { font-weight: 600; }
+  .about-facts a:hover { color: var(--link); }
+  @media (max-width: 760px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .about-side { position: static; max-width: 22rem; }
+  }
 </style>

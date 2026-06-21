@@ -18,6 +18,8 @@ export const profile = {
   role: 'Machine Learning Engineer',
   location: 'Nürnberg, Germany',
   email: 'jishnu.jayaraj@web.de',
+  // Portrait shown in the About section. Lives in /public, served as-is.
+  photo: '/me.jpg',
   about: [
     `I'm a Machine Learning Engineer focused on Large Language Models and the systems
      that put them to work. My path started in computational mechanics — simulating
