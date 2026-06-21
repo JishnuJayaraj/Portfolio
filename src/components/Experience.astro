@@ -26,17 +26,95 @@ import { profile } from '../data/profile';
   </div>
 </section>
 
+<script is:inline>
+  (() => {
+    const items = [...document.querySelectorAll('.t-item')];
+    if (!items.length) return;
+
+    if (!('IntersectionObserver' in window)) {
+      items[0]?.classList.add('is-active');
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          entry.target.classList.toggle('is-active', entry.isIntersecting);
+        });
+      },
+      { threshold: 0.15, rootMargin: '-38% 0px -38% 0px' }
+    );
+
+    items.forEach((item) => observer.observe(item));
+  })();
+</script>
+
 <style>
   .timeline { list-style: none; padding: 0; position: relative; margin-left: .5rem; }
-  .timeline::before { content: ''; position: absolute; left: 5px; top: 6px; bottom: 6px; width: 2px; background: var(--border); }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 6px;
+    bottom: 6px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--border), color-mix(in srgb, var(--link) 20%, var(--border)), var(--border));
+  }
   .t-item { position: relative; padding-left: 2rem; margin-bottom: 1.4rem; }
-  .t-dot { position: absolute; left: 0; top: 1.6rem; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
-  .t-body { padding: 1.4rem 1.6rem; }
+  .t-dot {
+    position: absolute;
+    left: 0;
+    top: 1.6rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+    transition: transform .45s var(--ease), box-shadow .45s ease, background-color .45s ease;
+  }
+  .t-body {
+    padding: 1.4rem 1.6rem;
+    transform-origin: left center;
+    transition:
+      transform .45s var(--ease),
+      box-shadow .45s var(--ease),
+      border-color .45s ease,
+      background-color .45s ease;
+  }
+  .t-item.is-active .t-dot {
+    transform: scale(1.28);
+    background: var(--link);
+    box-shadow:
+      0 0 0 5px color-mix(in srgb, var(--link) 18%, transparent),
+      0 0 28px color-mix(in srgb, var(--link) 28%, transparent);
+  }
+  .t-item.is-active .t-body {
+    transform: translateX(8px) scale(1.012);
+    border-color: color-mix(in srgb, var(--link) 34%, var(--border));
+    background: color-mix(in srgb, var(--surface) 86%, var(--bg-soft));
+    box-shadow: var(--shadow);
+  }
   .t-head { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; align-items: baseline; }
   .t-head h3 { font-size: 1.08rem; }
-  .t-head a:hover { color: var(--accent); }
+  .t-head a { transition: color .25s ease; }
+  .t-head a:hover, .t-item.is-active .t-head a { color: var(--link); }
   .t-period { font-family: var(--font-mono); font-size: .8rem; color: var(--text-muted); white-space: nowrap; }
   .t-loc { color: var(--text-muted); font-size: .9rem; margin-bottom: .8rem; }
   .t-body ul { margin: 0; padding-left: 1.1rem; }
   .t-body li { color: var(--text-soft); margin-bottom: .4rem; }
+
+  @media (max-width: 700px) {
+    .t-item.is-active .t-body { transform: translateX(4px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .t-dot,
+    .t-body {
+      transition: none !important;
+    }
+    .t-item.is-active .t-body,
+    .t-item.is-active .t-dot {
+      transform: none !important;
+    }
+  }
 </style>
